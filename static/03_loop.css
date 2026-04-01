@@ -1,0 +1,52 @@
+@media screen and (min-width: 360px){
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .duration {
+        border: #69290f solid 1px;
+        margin-top: 5em;
+        padding: 1em;
+    }
+
+    main h1 {
+        margin: 0;
+        font-size: 9rem;
+        color: #69290f;
+    }
+
+    h6 {
+        margin: 0;
+        text-align: center;
+        font-size: 1.4em;
+        color: #927f77;
+    }
+
+
+    .loop-container {
+        display: flex;
+        margin: 5em 0 3em 0;
+    }
+
+    .start-time-container, .end-time-container{
+        text-align: center;
+        margin: 0 1em 0 1em;
+    }
+
+    .loop-container input{
+        text-align: center;
+    }
+
+    main button {
+        margin-top: 3em;
+        padding: 0.5em 1em;
+        background-color: #69290f;
+        color: #f7f7f7;
+        border: none;
+        cursor: pointer;
+    }
+
+}

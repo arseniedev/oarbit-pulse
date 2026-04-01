@@ -1,0 +1,16 @@
+@media screen and (min-width: 360px){
+    main {
+        align-items: center;
+        justify-content: center;
+    }
+
+    video {
+/* #walkthrough-tutorial { */
+    /* max-width: 10%; */
+    /* height: auto; */
+    /* margin-top: 3em; */
+    position: relative;
+    margin-left: 10%;
+
+}
+}

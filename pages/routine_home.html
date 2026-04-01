@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routine App Homepage</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="../static/layout.css">
+    <link rel="stylesheet" type="text/css" href="../static/task_style.css">
+</head>
+<body>
+    <header>
+        <h1>Oar-Bit Pulse</h1>
+    </header>
+    <main>
+        <h1>Habits</h1>
+        <div id="root"></div>
+        <button onclick="taskManager.toggleForm()">Add Task</button>
+        <!-- <div id="newtext"></div> -->
+    </main>
+
+    <aside>
+        <script src="/src/habits.js" defer></script>
+        <script src="/src/task.js" defer></script>
+            <div id="popup-form">
+                <div class="close-button" onclick="taskManager.closeForm()">&times;</div>
+                <form class="form" id="task-form">
+                    <h1>New Task</h1>
+                    <div class="form-element">
+                        <label for="task-name">Task Name</label>
+                        <input type="text" id="task-name" name="task-name" placeholder="Enter task name" required>
+                    </div>
+                    <div class="form-element">
+                        <label for="start-time">Start Time</label>
+                        <input type="text" id="start-time" name="start-time" placeholder="00:00" required>
+                    </div>
+                    <div class="form-element">
+                        <label for="end-time">End Time</label>
+                        <input type="text" id="end-time" name="end-time" placeholder="00:00" required>
+                    </div>
+                    <button id="save" type="submit">Save</button>
+                </form>
+            </div>
+    </aside>
+
+    <script>
+        window.onload = () => {
+            window.localStorage.clear()
+            taskManager.displayFormData();
+        };
+
+        const form = document.querySelector('#task-form')
+        form.addEventListener('submit', (event) => {
+            event.preventDefault()
+            taskManager.handleFormData(form)
+        })
+    </script>
+    <script type="text/babel">
+        // function Form() {
+        //     const [form, setForm] = React.useState([[]]);   
+        //     const onSubmit = (event) => {
+        //     }
+        //     return (
+        //     )
+        // }
+        // function Greet() {
+        //     const [input, setInput] = React.useState('');
+        //     function validateTimeInput(input) {
+        //         return input.trim() !== ''
+        //     }
+
+        //     function handleChange(event) {
+        //         const inputValue = event.target.value;
+        //         setInput(inputValue);
+
+        //         if (!validateTimeInput(inputValue)) {
+        //             console('Invalid time input')
+        //         }
+        //     }
+
+        //     return (
+        //         <input value={input} onChange={(event) => handleChange(event)} />
+                
+        //     );
+        //     const timeEl = <Greet />;
+        //     const timeContainer = document.getElementById('newtext');
+        //     const timeRoot = ReactDOM.createRoot(timeContainer);
+        //     timeRoot.render(timeEl);
+        // }
+
+        // const startTimeInput = document.querySelector('#start-time')
+        // startTimeInput.addEventListener('input', (event) => {
+        //     taskManager.validateTimeInput(event.target)
+        // })
+    </script>
+
+    <script type="text/babel">
+        function App() {
+            const [rows, setRows] = React.useState([[]]);
+
+            const handleAddRow = () => {
+                setRows([...rows, []]);
+            };
+            return (
+                <div>
+                    {rows}
+                </div>
+            );
+        }
+        const element = <App />;
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(element);
+    </script>
+</body>
+</html>

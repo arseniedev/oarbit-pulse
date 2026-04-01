@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+
+    <!-- Main -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- FONT FACE -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <!-- CHART -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/00_layout.css">
+    <link rel="stylesheet" type="text/css" href="../static/04_report.css">
+</head>
+<body>
+    <header>
+        <h1>Report</h1>
+        <div>
+            <!-- Bell icon -->
+            <i class="fa fa-bell"></i>
+            <!-- Profile picture -->
+            <img id="user-profile" alt="user-profile" src="/img/profile.jpg">
+        </div>
+        
+    </header>
+
+    <main>
+        <div>
+            <canvas id="habitChart"></canvas>
+            <label id="Chart"></label>
+        </div>
+
+        <div id="tag-container"></div>
+    </main>
+
+    <aside>
+        
+    </aside>
+
+    <footer>
+        <!-- <div class="menu"> -->
+            <a href="01_habits.html"><i class="fa fa-calendar"></i></a>
+            <a href="02_loop.html"><i class="fa fa-clock-o"></i></a>
+            <a href="03_report.html"><i class="fa fa-pie-chart active-tab"></i></a>
+            <a href="04_walkthrough.html"><i class="fa fa-question-circle"></i></a>
+        <!-- </div> -->
+    </footer>
+
+    <!-- LISTING -->
+    <script src="/src/task_json.js" defer></script>
+    <script src="/src/task_controller.js" defer></script>
+    <script src="/src/task.js" defer></script>
+    <script src="/src/habits.js" defer></script>
+    <script src="/src/report.js" defer></script>
+    <script>
+        var theReport
+
+    function main() {
+        theReport = new Report()
+        document.getElementById('tag-container').innerHTML = theReport.displayReport() 
+        // document.getElementById('day-contents').innerHTML = theTaskManager.displayFilteredTasks()
+        theReport.displayChart()
+    }
+    window.onload = main
+    </script>
+
+</body>
+</html>
