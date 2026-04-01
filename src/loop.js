@@ -4,6 +4,7 @@ class LoopManager {
     gap
     constructor() {
         this.state = false
+        this.notifCounter = 0
         // this.perm = 'denied'
         // this.countdown = 5
         // this.start = '--:--'
@@ -24,7 +25,7 @@ class LoopManager {
 
     validateInput(event) {
         const value = event.target.value
-        let isPastCurrentTime = value > this.getCurrentTime()
+        let isPastCurrentTime = value //> this.getCurrentTime()
         // console.log(this.getCurrentTime())
         // console.log(value)
         const validPrompt = [isPastCurrentTime, 'Valid time input', value]
@@ -52,10 +53,11 @@ class LoopManager {
         // console.log(minuteInterval + ' mins')
         // console.log(this.gap + ' seconds')
         if (typeof this.gap === 'number') {
+            result = `You will receive hydration reminders every `
             if (minuteInterval > 1) {
-                result = `You will receive hydration reminders every ${parseFloat(minuteInterval.toFixed(1))} minute(s).`
+                result += `${parseFloat(minuteInterval.toFixed(1))} minute(s).`
             } else {
-                result = `You will receive hydration reminders every ${parseFloat(minuteInterval * 60).toFixed(1)} second(s).`}
+                result += `${parseFloat(minuteInterval * 60).toFixed(1)} second(s).`}
         } else {result = " - "}
 
         return result
@@ -66,14 +68,14 @@ class LoopManager {
         // const button = document.getElementById('begin-button')
         // button.addEventListener('click', () => {
             // console.log(this.gap)
-            this.notifCounter = count
+            // this.notifCounter = count
             this.gap = (gap / count) * 3606
             console.log('Loop has started')
             Notification.requestPermission().then(perm => {
                 //  this.perm = perm
                 if (perm === 'granted') {
                     this.state = true
-                    this.loopNotify()
+                    this.loopNotify(count)
                 } else {
                     alert(`Permission: ${perm.toUpperCase()}`)
                 }
@@ -81,14 +83,15 @@ class LoopManager {
         // })
     }
 
-    loopNotify() {
+    loopNotify(notifMaxCount) {
+        // this.notifCounter = notifCount
         if (this.state) {
-            if (this.notifCounter > 0) {
+            if (this.notifCounter <= notifMaxCount) {
                 this.timeOutID = setTimeout(() => {
                     console.log(this.notifCounter)
-                    this.notifCounter--
+                    this.notifCounter++
                     this.displayNotif()
-                    this.loopNotify()
+                    this.loopNotify(notifMaxCount)
                 }, this.gap * 1000)
             } else {
                 console.log('done')
@@ -102,7 +105,7 @@ class LoopManager {
         const notify = new Notification(`Hydration Reminder #${this.notifCounter}`, {
             body: `It is time to drink water.`,
             // data:,
-            icon: "/img/logo.jpg",
+            icon: "../media/images/hydration_logo.png",
             tag: 'hydration-reminder'
         })
     }

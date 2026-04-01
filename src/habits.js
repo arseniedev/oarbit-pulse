@@ -1,3 +1,5 @@
+// import Audio from './audio.js'
+
 class TaskManager {
     constructor(currentDate=new Date()) {
         this.container = ''
@@ -45,11 +47,11 @@ class TaskManager {
         }
         return `
             <div class="task-time-container">
-                <div id="time-stamp">
+                <div class="time-stamp">
                     <p>${start}</p><br/>
                     <p>${end}</p>
                 </div>
-                <div id=${tag}>
+                <div class=${tag}>
                     <h5>${name}</h5>
                     <p>${this.formatHr(duration)}hr(s)</p>
                 </div>
@@ -62,9 +64,9 @@ class TaskManager {
     }
 
     handleFormData(form) {
+        let result 
         const formData = new FormData(form)
         let formObject = Object.fromEntries(formData)
-        // let name = formObject['taskName']
         let start = formObject['startTime']
         let end = formObject['endTime']
         formObject['day'] = this.dayIndex
@@ -73,16 +75,13 @@ class TaskManager {
         let validTime = this.validateInput(start,end)
 
         if(validTime) {
-            // console.log(validTime)
-            this.saveToStorage(formObject)
-            this.displayFilteredTasks()
-            form.reset();
-            // document.getElementById('taskName').focus()
-            location.reload()
+            result = [true, formObject]
 
         } else {
             alert("Invalid time provided.")
+            result = [false, null]
         }
+        return result
     }
 
     calculateDuration(startTime,endTime) {
@@ -151,7 +150,6 @@ class TaskManager {
         let accDayDuration = 0
         for (const newHabit of array) {
             if (newHabit.day === this.dayIndex) {
-                const day = newHabit.day
                 const name = newHabit.taskName
                 const start = newHabit.startTime
                 const end = newHabit.endTime
@@ -168,6 +166,29 @@ class TaskManager {
 
     clearLocalStorage() {
         localStorage.clear()
-        location.reload()
+        setTimeout(function(){
+            location.reload()
+        }, 2000)
+    }
+
+    mapData() {
+        let habitArray = []
+        let mappedHabits = {}
+        let storedData = this.getLocalStorage()
+        
+        storedData.forEach((item) => {
+            if(!mappedHabits.hasOwnProperty(item.taskName)) {
+                mappedHabits[item.taskName] = item.duration
+                habitArray.push(item.taskName)
+            } else {
+                mappedHabits[item.taskName] += parseFloat(item.duration)
+            }
+        })
+
+        let result = Object.keys(mappedHabits).map((taskName) => {
+            return {taskName: taskName, duration: mappedHabits[taskName]}
+        })
+            
+        return result
     }
 }

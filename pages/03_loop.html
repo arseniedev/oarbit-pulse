@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loop</title>
+
+    <!-- Main -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- FONT FACE -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="../static/00_layout.css">
+    <link rel="stylesheet" type="text/css" href="../static/04_loop.css">
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html">Loop</a></h1>
+        <div>
+            <!-- Bell icon -->
+            <!-- <i class="fa fa-bell"></i> -->
+            <!-- Profile picture -->
+            <img id="user-profile" alt="user-profile" src="../media/images/profile.jpg">
+        </div>
+    </header>
+    <main>
+        <!-- FORM -->
+        <div id="container"></div>
+        <!-- BEGIN BUTTON -->
+
+    </main>
+
+    <footer>
+        <a href="01_habits.html">
+            <i class="fa fa-calendar"></i>
+            <p>Habits</p>
+        </a>
+        <a href="02_statistics.html">
+            <i class="fa fa-pie-chart"></i>
+            <p>Statistics</p>
+        </a>
+        <a href="03_loop.html">
+            <i class="fa fa-clock-o active-tab"></i>
+            <p>Loop</p>
+        </a>
+        <a href="04_tutorial.html">
+            <i class="fa fa-question-circle"></i>
+            <p>Tutorial</p>
+        </a>
+    </footer>
+
+    <!-- REACT -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- MAIN SCRIPT -->
+    <script src="../src/loop.js"></script>
+
+    <!-- AUDIO -->
+    <script src="../src/audio.js"></script>
+
+    <script>
+        function main() {
+            const audio = new OarBitAudio()
+            audio.playAudio('switchToLoop')
+        }
+        window.onload = main
+    </script>
+
+    <script type="text/babel">
+        var timePair = {}
+        var timegap
+        function LoopForm() {
+            // Start-Time form
+            let theLoopManager = new LoopManager()
+            let [startTime, setstartTime] = React.useState("-")
+            // End-Time form
+            let [endTime, setEndTime] = React.useState("-")
+            
+            // Calculate duration
+            let [duration, setDuration] = React.useState(0)
+
+            // Interval
+            let [timegap, setTimegap] = React.useState("Specify how many times you want to be notified.")
+
+            // Format prompt colour
+            let [valid, setValid] = React.useState(true)
+
+            function handleStartChange(event) {
+                let validatedTime = theLoopManager.validateInput(event)
+                setstartTime(validatedTime[1])
+                if (validatedTime[0]) {
+                    timePair['start-time'] = validatedTime[2]
+                    unpackTime()
+                    setValid(true)
+                } else {
+                    // setValid(false)
+                    setDuration(0)
+                }
+            }
+
+            function handleEndChange(event) {
+                let validatedTime = theLoopManager.validateInput(event)
+                setEndTime(validatedTime[1])
+                if (validatedTime[0]) {
+                    timePair['end-time'] = validatedTime[2]
+                    unpackTime()
+                    setValid(true)
+                } else {
+                    setValid(false)
+                    setDuration(0)
+                }
+            }
+
+            function unpackTime() {
+                if (Object.keys(timePair).length >= 2) {
+                    // console.log(timePair)
+                    let start = timePair['start-time']
+                    let end = timePair['end-time']
+                    if (theLoopManager.compareTime(start,end)) {
+                        timePair['hrDifference'] = theLoopManager.calculateDuration(start,end)
+                        setDuration(timePair['hrDifference'])
+                        // setValid(true)
+                    } 
+                    else {
+                        setEndTime("Please enter a larger time value.")}
+                        // setDuration(0)
+                        // setValid(false)
+                }
+            }
+
+            function handleInterval(event) {
+                let count = event.target.value
+                let gap = timePair['hrDifference']
+                timePair['count'] = count
+                setTimegap(theLoopManager.solveInterval(count, gap))
+            }
+
+            function handleBeginBtn(event) {
+                theLoopManager.setState(timePair['count'],timePair['hrDifference'])
+            }
+
+        return (
+            <div className="container">
+                <div className="duration">
+                    <h1>{duration}</h1>
+                    <h4>Hour(s)</h4>
+                </div>
+                <div className="loop-container">
+                    <div className="time-container">
+                        <h4>Start Time</h4>
+                        <p className={valid ? 'valid' : 'invalid'}>{startTime}</p>
+                        <input type="time" id="start-time" name="start-time" onChange={handleStartChange} required/>
+                    </div>
+                    <div className="time-container">
+                        <h4>End Time</h4>
+                        <p className={valid ? 'valid' : 'invalid'}>{endTime}</p>
+                        <input type="time" id="end-time" name="end-time" onChange={handleEndChange} required/>
+                    </div>
+                </div>
+                <div className="interval">
+                    <label htmlFor="interval"><h4>Count</h4></label>
+                    <p>{timegap}</p>
+                    <input type="number" id="interval" name="interval" min="1" placeholder="Enter an integer" onChange={handleInterval} required/>
+                </div>
+                <div id="begin-loop-container">
+                    <button id="begin-button" onClick={handleBeginBtn}>Begin</button>
+                </div>
+            </div>
+            )}
+        let loopFormElement = <LoopForm/>
+    
+        let acontainer = document.getElementById('container')
+        let testroot = ReactDOM.createRoot(acontainer)
+        testroot.render(loopFormElement)
+      </script>
+    
+</body>
+</html>

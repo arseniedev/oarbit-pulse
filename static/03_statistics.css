@@ -1,0 +1,38 @@
+@media screen and (min-width: 360px){
+    /* AMD CHART STYLES */
+    #habit-chart {
+    width: auto;
+    height: 350px;
+    /* margin: 1em; */
+    }
+
+    /* main {
+        margin-top: 10em;
+    } */
+
+
+    main div {
+        display: flex;
+        /* margin: 0 1em; */
+        /* margin: 3em 1em; */
+    }
+
+    main h1 {
+        text-align: center;
+        color: #570c0c;
+        /* margin-top: 1.2em; */
+        font-size: 4.6rem;
+        /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+    }
+
+    /* CHART JS STYLES */
+    #habitChart {
+        width: 600px;
+        height: auto;
+    }
+
+    #chart-label {
+        width: 500px;
+    }
+
+}

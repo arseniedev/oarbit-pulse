@@ -3,8 +3,16 @@
         margin: 0;
         padding: 0;
         font-family: "Raleway", sans-serif;
+        font-size: 1.7rem;
+        /*line-height: 3vh; */
         overflow-x: hidden;
         width: 100%;
+        background-color: #E2D8D8;
+    }
+
+
+    body::-webkit-scrollbar {
+        display: none;
     }
 
     a:hover {
@@ -17,23 +25,28 @@
     }
     
     h1 {
-        font-size: 5rem;
+        font-size: 5.5rem;
         color: #ebb5a0;
     }
 
-    /* general */
     /* Habits Header Layout*/
     header {
-        /* position:fixed; */
-        /* top: 0; */
+        position:fixed;
+        top: 0;
+        /*
+        */
 
-        padding: 1.5em 1em;
+        padding: 1.5em;
         width: 100%;
         
         display: flex;
         justify-content: space-between;
         align-items: center;
         background-color: #170F4A;
+    }
+
+    header a {
+        color: #ebb5a0;
     }
 
     #user-profile {
@@ -43,11 +56,16 @@
         margin-left: 1.6em;
     }
 
+    main {
+        margin-top: 9em;
+    }
+
+
     /* Habits Nav */
     footer {
         position:fixed;
         bottom: 0;
-        padding: 3rem;
+        padding: 3em 0 1em 0;
         width: 100%;
 
         display: flex;
@@ -57,21 +75,40 @@
 
     /* ICONS */
     .fa { 
-        font-size: 2rem;
+        font-size: 2.6rem;
     }
     
-    /* Notification bell */
-    .fa-bell {
+    /* Clear storage icon */
+    .fa-trash {
         color: #d8c2ba;
     }
     
+    /* Tab icons */
     .fa-calendar, .fa-clock-o, .fa-pie-chart, .fa-question-circle {
         color: #ebb5a0;
+    }
+    
+    /* Tab texts */
+    footer p {
+        color: #d8c2ba;
+        font-size: 1.2rem;
+        padding-top: 0.5em;
     }
   
     footer .fa:hover, .active-tab {
         text-decoration: none;
-        color: rgb(148, 212, 241);
+        color: #94d4f1;
     }
 
+    footer a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    a {
+        text-decoration: none;
+        align-items: center;
+    }
 }
