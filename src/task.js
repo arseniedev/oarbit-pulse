@@ -1,60 +1,43 @@
-class TaskManager {
-    constructor() {
-        this.tasks = [];
-        // this.index = 0;
+class Task {
+    constructor(newIndex, newName, newStart, newEnd){//, newColour) {
+        this.dayIndex = newIndex
+        this.name = newName
+        this.startTime = newStart
+        this.endTime = newEnd
+        // this.color = newColour
+        this.duration = 0
     }
-    toggleForm() {
-        document.querySelector("#popup-form").classList.add("active")
-    }
-    
-    closeForm() {
-        document.querySelector("#popup-form").classList.remove("active")
-    }
-    
-    defaultTemplate() {
-        const newTaskContainer = document.createElement('div');
-        newTaskContainer.className = 'task-time-container';
-        newTaskContainer.innerHTML = `
-        <div id="time-stamp">
-        <p>00:00</p><br/>
-        <p>00:00</p>
-        </div>
-        <div id="task-detail">
-        <p>taskName</p><br/>
-        </div>
-        `;
-        document.getElementById('root').appendChild(newTaskContainer);
-    }
-    
-    saveData(event, form, index) {
-        event.preventDefault()
-        const formData = new FormData(form)
-        const formObject = Object.fromEntries(formData)
-        index++
-        const json = JSON.stringify(formObject)
-        localStorage.setItem(index, json)
-    
-        const startTime = formObject['start-time'];
-        const endTime = formObject['end-time'];
-        const taskName = formObject['task-name'];
-        const newTaskContainer = document.createElement('div');
-        newTaskContainer.className = 'task-time-container';
-        newTaskContainer.innerHTML = `
-            <div id="time-stamp">
-                <p>${startTime}</p><br/>
-                <p>${endTime}</p>
+
+    displayTask() {
+        const containerColor = `style="background-color:${this.color}"`
+        return `
+            <div class="task-time-container">
+                <div id="time-stamp">
+                    <p>${this.startTime}</p><br/>
+                    <p>${this.endTime}</p>
+                </div>
+                <div id="task-detail" ${containerColor}>
+                    <h5>${this.name}</h5>
+                    <p>${this.calculateDuration()} hr(s)</p>
+                </div>
             </div>
-            <div id="task-detail">
-                <p>${taskName}</p><br/>
-            </div>
-        `;
-        document.getElementById('root').appendChild(newTaskContainer);
-        form.reset();
+        `
     }
+
+    calculateDuration() {
+        const startTime = this.startTime
+        const endTime = this.endTime
+
+        const [startHours, startMinutes] = startTime.split(':').map(Number);
+        const [endHours, endMinutes] = endTime.split(':').map(Number);
     
-    testDisplay() {
-        console.log('test display')
+        const startTimeMinutes = startHours * 60 + startMinutes;
+        const endTimeMinutes = endHours * 60 + endMinutes;
+
+        const durationInMinutes = endTimeMinutes - startTimeMinutes;
+        const durationInHours = durationInMinutes / 60
+        
+        this.duration = parseFloat(durationInHours.toFixed(2))
+        return this.duration
     }
 }
-
-const taskManager = new TaskManager()

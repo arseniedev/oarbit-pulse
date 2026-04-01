@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loop</title>
+
+    <!-- Main -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- FONT FACE -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="../static/00_layout.css">
+    <link rel="stylesheet" type="text/css" href="../static/03_loop.css">
+</head>
+<body>
+    <header>
+        <h1>Loop</h1>
+        <div>
+            <!-- Bell icon -->
+            <i class="fa fa-bell"></i>
+            <!-- Profile picture -->
+            <img id="user-profile" alt="user-profile" src="/img/profile.jpg">
+        </div>
+    </header>
+    <main>
+        <!-- FORM -->
+        <div id="container"></div>
+        <!-- BEGIN BUTTON -->
+        <div id="begin-loop-container"></div>
+
+    </main>
+    <aside>
+        
+    </aside>
+        
+    <footer>
+        <!-- <div class="menu"> -->
+            <a href="01_habits.html"><i class="fa fa-calendar"></i></a>
+            <a href="02_loop.html"><i class="fa fa-clock-o active-tab"></i></a>
+            <a href="03_report.html"><i class="fa fa-pie-chart"></i></a>
+            <a href="04_walkthrough.html"><i class="fa fa-question-circle"></i></a>
+        <!-- </div> -->
+    </footer>
+
+    <!-- REACT -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script src="/src/loop.js"></script>
+
+    <script type="text/babel">
+        var timeArr = []
+        var timegap
+        function LoopForm() {
+            // Start-Time form
+            const [startTime, setstartTime] = React.useState(null)
+            // End-Time form
+            const [endTime, setEndTime] = React.useState(null)
+            
+            // Calculate duration
+            const [duration, setDuration] = React.useState(0)
+
+            // Interval
+            const [interval, setInterval] = React.useState("Specify how many times you want to be notified.")
+
+            function handleStartChange(event) {
+                timeArr = []
+                const value = event.target.value
+                setstartTime(validateInput(value))
+                timeArr.push(value)
+                setDuration(timeArr)
+            }
+
+            function handleEndChange(event) {
+                if (timeArr.length > 1) {
+                    timeArr = []
+                }
+                const value = event.target.value
+                setEndTime(validateInput(value))
+                const start = timeArr[0]
+                setDuration(calculateDuration(start,value))
+            }
+
+            function handleInterval(event) {
+                const value = event.target.value
+                setInterval(solveInterval(value))
+            }
+        
+            function validateInput(value) {
+                if (value.trim() === '') {
+                    return null
+                }
+                const [hours, minutes] = value.split(':').map(Number)
+                const regEx = /^(0?[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/
+                const validTxt = 'Valid format'
+                const inValidTxt = 'Invalid format or time'
+
+                var checker = regEx.test(value) && hours >= 0 && hours <= 24 && minutes >= 0 && minutes < 60
+                return checker
+                    ? validTxt
+                    : inValidTxt
+            }
+
+            function solveInterval(value) {
+                let minuteInterval = (timegap / value) * 60
+                return `You will receive hydration reminders every ${parseFloat(minuteInterval.toFixed(0))} minutes.`
+            }
+
+            function calculateDuration(startTime, endTime) {
+                let output
+                const start = new Date(`2000-01-01T${startTime}:00`)
+                const end = new Date(`2000-01-01T${endTime}:00`)
+                const result = Math.abs((end - start) / 36e5)
+                timegap = result
+                // return (result !== Nan) ? result : ""
+                if (result !== NaN && start < end) {
+                    output = parseFloat(result.toFixed(2))
+                } else if(start > end) {
+                    output = "Invalid"
+                }
+                else { output = "0"}
+                return output
+            }
+    
+        return (
+            <div>
+                <div className="duration">
+                    <h1>{duration}</h1>
+                    <h4>Hour(s)</h4>
+                </div>
+                <div className="loop-container">
+                    <div className="time-container">
+                        <h4>Start Time</h4>
+                        <input type="text" id="start-time" name="start-time" placeholder="00:00" onChange={handleStartChange} required/>
+                        <p>{startTime}</p>
+                    </div>
+                    <div className="time-container">
+                        <h4>End Time</h4>
+                        <input type="text" id="end-time" name="end-time" placeholder="00:00" onChange={handleEndChange} required/>
+                        <p>{endTime}</p>
+                    </div>
+                </div>
+                <div className="interval">
+                    <label htmlFor="task-name"><h4>Count</h4></label>
+                    <p>{interval}</p>
+                    <input type="text" id="task-name" name="task-name" placeholder="Enter an integer" onChange={handleInterval} required/>
+
+                </div>
+                </div>
+            )}
+        // const prompt = 'Enter time'
+        const testelement = <LoopForm/>
+    
+        const acontainer = document.getElementById('container')
+        const testroot = ReactDOM.createRoot(acontainer)
+        testroot.render(testelement)
+      </script>
+</body>
+</html>
+<!--  <h6>Duration</h6> -->
+        <!-- <div>
+            <input type="text" onChange={handleChange} />
+            <p>{msg}</p>
+        </div> -->

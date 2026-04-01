@@ -1,0 +1,134 @@
+@media screen and (min-width: 360px){
+  /* < MONDAY > */
+  .head {
+      background-color: #b6b5c0;
+      color: #530707;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2%;
+  }
+
+  #previousBtn, #nextBtn {
+      display: inline-block;
+      margin: 0 1em;
+      font-size: 5rem;
+      border: none;
+      background-color: #b6b5c0;
+  }
+
+
+  /* MAIN ADD TASK BUTTON */
+  #add-task {
+    position:fixed;
+    right: 1.8em;
+    bottom: 10em;
+    opacity: 1;
+  }
+
+  #add-task button {
+    color: #eedbcb;
+    background-color: #310505;
+    padding: 1.4em;
+    border-radius: 22%;
+    cursor: pointer;
+  }
+
+  #popup-form {
+    opacity: 1;
+    color: #eedbcb;
+    background-color: #530707;
+    padding: 2em;
+    width: 300px;
+    border-radius: 5px;
+    box-shadow:
+    -15px 15px 30px #423e3e49,
+    15px -15px 30px #f5d1d13a;
+  }
+
+  .form-head {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  aside #close-button, aside #save-button {
+    border-radius: 0;
+    border: none;
+    background-color: #530707;
+  }
+
+  aside #save-button {
+    padding: 0.3em;
+    margin: 1em 0;
+    width: 100%;
+    color: #020525;
+    background-color: #d6c1c1;
+
+  }
+
+  aside #close-button {
+    font-size: 3.6rem;
+    line-height: 1vh;
+    padding: 0.3em;
+    margin-bottom: 1.4em;
+  }
+
+  aside h1 {
+    /* margin-top: 0; */
+    font-size: 4rem;
+  }
+
+  #day h2 {
+    width: 100px;
+    text-align: center;
+  }
+
+  .form-element {
+    display: grid;
+    margin-bottom: 1em;
+  }
+
+  #task-name, #start-time, #end-time {
+    color: #020525;
+  }
+
+  /* DISPLAYED TASK */
+    .task-time-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 350px;
+      margin: 1em 3em 0.1em 3em;
+    }
+
+    #task-detail, #empty-task-detail {
+      width: 100%;
+      border: solid 1px #180f0f8c;
+      border-radius: 5px;
+      padding: 0.9em 1em;
+      margin-bottom: 1em;
+    }
+
+    #task-detail p, #task-detail h5, #task-detail h6,
+    #empty-task-detail p, #empty-task-detail h5, #empty-task-detail h6 {
+      font-size: 1.4rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    #task-detail h5, #empty-task-detail h5{
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
+    #empty-task-detail {
+      opacity: 0.4;
+    }
+
+    #time-stamp {
+      font-size: 1.3rem;
+      color: #666;
+      line-height: 2.2em;
+    }
+
+}

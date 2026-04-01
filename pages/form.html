@@ -1,0 +1,134 @@
+<!-- TODO: integrate to habits -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    
+    <title>OarBit Pulse</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <!-- <link rel="stylesheet" type="text/css" href="../static/form_style.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../static/form.css"> -->
+    <link rel="stylesheet" type="text/css" href="../static/task_style.css">
+    <link rel="stylesheet" type="text/css" href="../static/layout.css">
+    
+</head>
+<body>
+    <script defer src="/src/Form.js"></script>
+    <script defer src="/src/Task.js"></script>
+
+    <header>
+        <h1>Oar-Bit Pulse</h1>
+    </header>
+    <main>
+        <h1>Habits x0x</h1>           
+        <div class="add-habit">
+            <div>
+            <!-- <button type="button" class="tablinks">Temp Save Button</button> -->
+            <br>
+            <button type="button" onclick="toggleForm()">Add task</button>
+            </div>
+            <div class="habit-container">
+                <!-- <div class="time">
+                    <p>00:00</p>
+                    <br>
+                    <p>00:00</p>
+                </div> -->
+                <div class="habit-details">
+                    <!-- <p>&nbsp;</p -->
+                        <table>
+                            <div id="habit-output"></div><br>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <nav>
+        <!-- <div id="root"></div> -->
+    </nav>
+    <aside>
+        <div id="form-ouput"></div>
+        <div class="popup-form">
+            <div class="close-button" type ="button" onclick="closeForm()">&times;</div>
+            <form class="form">
+                <h1>New Habit</h1>
+                <div class="form-element">
+                    <label for="task-name">Task Name</label><br>
+                    <input type="text" id="task-name" name="task-name" placeholder="Enter task name" required>
+                </div>
+                <div class="form-element">
+                    <label for="start-time">Start Time</label><br>
+                    <input type="text" id="start-time" name="start-time" placeholder="00:00" required>
+                </div>
+                <div class="form-element">
+                    <label for="end-time">End Time</label><br>
+                    <input type="text" id="end-time" name="end-time" placeholder="00:00" required>
+                </div>
+                <div class="form-element">
+                    <label for="end-time">End Time</label><br>
+                    <input type="text" id="end-time" name="end-time" placeholder="00:00" required>
+                </div>
+
+                <button id="save" type="submit" onclick="getLocalStorage()">Save</button>
+                <button id="discard" type="submit">Discard</button>
+            </form>
+        </div>
+    </aside>
+
+    <!-- <script>
+        let index = 0
+        const form = document.querySelector('form')
+        form.addEventListener('submit', (event) => {
+            event.preventDefault()
+            const formData = new FormData(form)
+            const formObject = Object.fromEntries(formData)
+            localStorage.clear()
+            index++
+
+            const json = JSON.stringify(formObject)
+            localStorage.setItem(index, json)
+            console.log(localStorage)
+        })
+    </script> -->
+
+    <!-- <script type="text/babel">
+        function ReversingMessage({ message }) {
+            let content = ''
+            const [msg, setMsg] = React.useState(message)
+
+            function handleClick() {
+            content += msg
+            setMsg(content)
+            // setMsg(msg.split('').reverse().join(''))
+            // cannot be called outside the component
+            }
+
+            return (
+            <div>
+                <h1>{msg}</h1>
+                <button onClick={handleClick}>
+                Reverse Message
+                </button>
+            </div>
+            )
+        }
+    
+        const SECRET_MESSAGE = 'Hello React!'
+        const element = <ReversingMessage message={SECRET_MESSAGE} />
+    
+        const container = document.getElementById('root')
+        const root = ReactDOM.createRoot(container)
+        root.render(element)  
+      </script> -->
+</body>
+</html>

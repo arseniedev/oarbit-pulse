@@ -1,0 +1,70 @@
+@media screen and (min-width: 360px){
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Raleway", sans-serif;
+    }
+
+    a:hover {
+        text-decoration: none;
+        color: rgb(0, 129, 250);
+    }
+    
+    h1, h2 {
+        font-family: "VT323", monospace;
+    }
+    
+    h1 {
+        font-size: 5rem;
+        color: #ebb5a0;
+    }
+
+    /* general */
+    /* Habits Header Layout*/
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #170F4A;
+        padding: 1.5em 1em;
+    }
+
+    #user-profile {
+        width: 60px;
+        height: 60px;
+        border-radius: 25px;
+        margin-left: 1.6em;
+    }
+
+    /* Habits Nav */
+    footer {
+        position:fixed;
+        bottom: 0;
+        padding: 3rem;
+        width: 100%;
+
+        display: flex;
+        justify-content: space-around;
+        background-color: #201e33;
+    }
+
+    /* ICONS */
+    .fa { 
+        font-size: 2rem;
+    }
+    
+    /* Notification bell */
+    .fa-bell {
+        color: #d8c2ba;
+    }
+    
+    .fa-calendar, .fa-clock-o, .fa-pie-chart, .fa-question-circle {
+        color: #ebb5a0;
+    }
+  
+    footer .fa:hover, .active-tab {
+        text-decoration: none;
+        color: rgb(148, 212, 241);
+    }
+
+}
