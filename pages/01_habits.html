@@ -43,7 +43,6 @@
     </nav>
     
     <main>
-        <!-- <div id="root"></div> -->
         <div id="day-contents"></div>
         <div id="add-task"></div>
     </main>
@@ -58,8 +57,6 @@
     </footer>
 
     <!-- LISTING -->
-    <!-- <script src="/src/task_json.js" defer></script> -->
-    <!-- <script src="/src/task_controller.js" defer></script> -->
     <script src="/src/task.js" defer></script>
     <script src="/src/habits.js" defer></script>
 
@@ -91,8 +88,13 @@
     <!-- TODO: INTEGRATE THIS FORM SPECIFIC CODE -->
     <script type="text/babel">
         function FormFetcher() {
+
+        const clear = (event) => {
+            theTaskManager.clearLocalStorage()
+        }
         
         const submitHandler = (event) => {
+            setSeen(false)
             let form = document.querySelector('#task-form')
             event.preventDefault()
             theTaskManager.handleFormData(form)
@@ -110,24 +112,30 @@
                                     <button id="close-button" onClick={() => setSeen(false)}>&times;</button>
                                 </div>
                                 <div class="form-element">
-                                    <label for="task-name">Task Name</label>
-                                    <input type="text" id="task-name" name="task-name" placeholder="Enter task name" required/>
+                                    <label for="taskName">Task Name</label>
+                                    <input type="text" id="taskName" name="taskName" placeholder="Enter task name" required/>
                                 </div>
                                 <div class="form-element">
-                                    <label for="start-time">Start Time</label>
-                                    <input type="text" id="start-time" name="start-time" placeholder="00:00" required/>
+                                    <label for="startTime">Start Time</label>
+                                    <input type="time" id="startTime" name="startTime" placeholder="00:00" required/>
                                 </div>
                                 <div class="form-element">
-                                    <label for="end-time">End Time</label>
-                                    <input type="text" id="end-time" name="end-time" placeholder="00:00" required/>
+                                    <label for="endTime">End Time</label>
+                                    <input type="time" id="endTime" name="endTime" placeholder="00:00" required/>
                                 </div>
                                 <button id="save-button" type="submit">Save</button>
                             </form>
                         </div>
+                        <div id="overlay"></div>
                     </aside>
                 )
             } else {
-                return <button onClick={() => setSeen(true)}><i class="fa fa-plus"></i></button>
+                return (
+                    <div>
+                        <button id="clear" onClick={clear}>Clear All</button>
+                        <button id="add-button" onClick={() => setSeen(true)}><i class="fa fa-plus"></i></button>
+                    </div>
+                )
             }
         }
         document.querySelectorAll("#add-task").forEach((domContainer) => {

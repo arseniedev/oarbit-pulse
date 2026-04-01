@@ -1,16 +1,45 @@
 @media screen and (min-width: 360px){
+    body{
+        display: grid;
+    }
+        
+    header {
+        position: fixed;
+        top: 0;
+        grid-row: 1;
+    }
+    
     main {
-        align-items: center;
-        justify-content: center;
+        text-align: center;
     }
 
     video {
-/* #walkthrough-tutorial { */
-    /* max-width: 10%; */
-    /* height: auto; */
-    /* margin-top: 3em; */
-    position: relative;
-    margin-left: 10%;
+        grid-row: 2;
+        margin-top: 10em;
+    }
+    aside {
+        grid-row: 3;
+        height: 610px;
+        margin: 0;
+        overflow-y: auto;
 
-}
+
+    }
+
+    aside p {
+        margin: 0 3.5em;
+    }
+    h2 {
+        font-size: 4rem;
+        margin: 0 0.7em;
+
+    }
+
+    h3 {
+        font-family: "VT323", monospace;
+        font-size: 3rem;
+        margin: 0 1.2em;
+    }
+
+
 }

@@ -29,6 +29,7 @@
 
     <main>
         <!-- AMD CHART  -->
+      <h1>Habit Weekly<br>Summary</h1>
       <div id="habit-chart"></div>
 
     </main>
@@ -72,7 +73,7 @@
         let storedData = theHabitManager.getLocalStorage()
         for (let aHabit of storedData) {
           let habit = {}
-          habit['habit'] = aHabit.name 
+          habit['habit'] = aHabit.taskName 
           habit['duration'] = aHabit.duration
           dataArray.push(habit)
         }

@@ -1,107 +1,109 @@
-'use strict'
-const loopElement = React.createElement
+class LoopManager {
+    timeOutID
+    notifCounter
+    gap
+    constructor() {
+        this.state = false
+        // this.perm = 'denied'
+        // this.countdown = 5
+        // this.start = '--:--'
+        // this.end = '--:--'
+        // this.timePair = {}
+    }
 
-class BeginLoop extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { go: false }
-  }
-
-  render() {
-    if (this.state.go) {
-        // !Asking for permission
-        // Notification.requestPermission().then(perm => {
-        //     alert(perm)
-        // })
-        // ! Basic Notification
-        // Notification.requestPermission().then(permission => {
-        //     if(permission === "granted") {
-        //         new Notification("Example Notification")
-        //     }
-        // })
-        // ! More texts
-        // Notification.requestPermission().then(permission => {
-        //     if(permission === "granted") {
-        //         new Notification("Example Notification", {
-        //             body: "This is more text"
-        //         })
-        //     }
-        // })
-        // ! Error and icon
-        // Notification.requestPermission().then(permission => {
-        //     if(permission === "granted") {
-        //         const notification = new Notification("Example Notification", {
-        //             body: "This is more text",
-        //             data: { hello: "Hello!!!" },
-        //             icon: "/img/logo.jpg",
-        //             // tag: "Test tag", //overwriting existing notif
-        //         })
-        //         // notification.data //not sure what this does
-        //         notification.addEventListener("error", e => {
-        //             alert("error")
-        //         })
-        //     }
-        // })
-        // ! interval
-        Notification.requestPermission().then(permission => {
-            if(permission === "granted") {
-                const notification = new Notification("Example Notification", {
-                    body: "This is more text",
-                    data: { hello: "Hello!!!" },
-                    icon: "/img/logo.jpg",
-                    // tag: "Test tag", //overwriting existing notif
-                })
-                notification.addEventListener("error", e => {
-                    alert("error")
-                })
-            }
-        })
+    getCurrentTime() {
+        const now = new Date()
+        const currentHour = now.getHours()
+        const currentMinute = now.getMinutes()
+        return `${currentHour}:0${currentMinute}`
     }
     
-        // let notification
-        // document.addEventListener("visibilitychange", () => {
-        //     if (document.visibilityState === 'hidden') {
-        //         notification = new Notification("Come backkk", {
-        //             body: "PLEASEEEE"
-        //         })
-        //     } else {
-        //         notification.close()
-        //     }
-        // })
+    compareTime(start, end) {
+        return end > start
+    }
 
-        // return loopElement(
-        //   'button',
-        //   { onClick: () => this.setState({ go: true }) },
-        //   'Begin'
-        // )
+    validateInput(event) {
+        const value = event.target.value
+        let isPastCurrentTime = value > this.getCurrentTime()
+        // console.log(this.getCurrentTime())
+        // console.log(value)
+        const validPrompt = [isPastCurrentTime, 'Valid time input', value]
+        const inValidPrompt = [isPastCurrentTime, 'Please enter a larger time value.', value]
 
-        let notification
-        let interval
-        document.addEventListener("visibilitychange", () => {
-            if (document.visibilityState === 'hidden') {
-                const leaveData = new Date()
-                setInterval(() => {
-                    notification = new Notification("Come backkk", {
-                        body: `You have been gone for ${Math.round((new Date() - leaveData) / 1000)} seconds...`,
-                        tag: "Test tag", //overwriting existing notif
-                    })
-                }, 100)
-                
+        return isPastCurrentTime
+            ? validPrompt
+            : inValidPrompt
+    }
+
+    calculateDuration(startTime, endTime) {
+        const start = new Date(`2000-01-01T${startTime}:00`)
+        const end = new Date(`2000-01-01T${endTime}:00`)
+        let result = parseFloat(Math.abs((end - start) / 36e5).toFixed(2))
+        return result
+    }
+
+    solveInterval(count, gap) {
+        let result
+        // console.log(gap, count)
+        let minuteInterval = (gap / count) * 60
+        this.gap = minuteInterval * 60
+        this.notifCounter = count
+        // console.log(this.notifCounter)
+        // console.log(minuteInterval + ' mins')
+        // console.log(this.gap + ' seconds')
+        if (typeof this.gap === 'number') {
+            if (minuteInterval > 1) {
+                result = `You will receive hydration reminders every ${parseFloat(minuteInterval.toFixed(1))} minute(s).`
             } else {
-                // clearInterval()
-                if (interval) clearInterval(interval)
-                if (notification) notification.close()
+                result = `You will receive hydration reminders every ${parseFloat(minuteInterval * 60).toFixed(1)} second(s).`}
+        } else {result = " - "}
+
+        return result
+    }
+
+    setState(count, gap) {
+        clearTimeout(this.timeOutID)
+        // const button = document.getElementById('begin-button')
+        // button.addEventListener('click', () => {
+            // console.log(this.gap)
+            this.notifCounter = count
+            this.gap = (gap / count) * 3606
+            console.log('Loop has started')
+            Notification.requestPermission().then(perm => {
+                //  this.perm = perm
+                if (perm === 'granted') {
+                    this.state = true
+                    this.loopNotify()
+                } else {
+                    alert(`Permission: ${perm.toUpperCase()}`)
+                }
+            })
+        // })
+    }
+
+    loopNotify() {
+        if (this.state) {
+            if (this.notifCounter > 0) {
+                this.timeOutID = setTimeout(() => {
+                    console.log(this.notifCounter)
+                    this.notifCounter--
+                    this.displayNotif()
+                    this.loopNotify()
+                }, this.gap * 1000)
+            } else {
+                console.log('done')
+                clearTimeout(this.timeOutID)
+                this.state = false
             }
+        }
+    }
+
+    displayNotif() {
+        const notify = new Notification(`Hydration Reminder #${this.notifCounter}`, {
+            body: `It is time to drink water.`,
+            // data:,
+            icon: "/img/logo.jpg",
+            tag: 'hydration-reminder'
         })
-
-        return loopElement(
-          'button',
-          { onClick: () => this.setState({ go: true }) },
-          'Begin'
-        )
-  }
+    }
 }
-
-const domContainer = document.querySelector('#begin-loop-container')
-const root = ReactDOM.createRoot(domContainer)
-root.render(loopElement(BeginLoop))

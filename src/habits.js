@@ -5,24 +5,12 @@ class TaskManager {
         this.dayIndex = (this.date).getDay()
         this.allMyTasks = []
     }
+    // React auto fill
+    // https://www.npmjs.com/package/react-autofill
 
-    // addTask(dayContainer, newName, newStart, newEnd) {
-    //     let newHabit = new Task(dayContainer, newName, newStart, newEnd)
-    //     this.allMyTasks.push(newHabit)
-    // }
 
-    sortHabits() {
-        // let storage = this.getLocalStorage()
-        // data.sort(function (a, b) {
-        this.allMyTasks.sort(function (a, b) {
-          if (a.start < b.start) {
-            return 1
-          } else if (a.start > b.start) {
-            return -1
-          } else {
-            return 0
-          }
-        })
+    sortHabits(allItems) {
+        allItems.sort((a, b) => a.startTime.localeCompare(b.startTime))
     }
 
     switchDayPage(value) {
@@ -76,22 +64,22 @@ class TaskManager {
     handleFormData(form) {
         const formData = new FormData(form)
         let formObject = Object.fromEntries(formData)
+        // let name = formObject['taskName']
+        let start = formObject['startTime']
+        let end = formObject['endTime']
+        formObject['day'] = this.dayIndex
+        formObject['duration'] = this.calculateDuration(start,end)
 
-        let newHabit = {}
-        newHabit['day'] = this.dayIndex
-        newHabit['name'] = formObject['task-name']
-        newHabit['start'] = formObject['start-time']
-        newHabit['end'] = formObject['end-time']
-        newHabit['duration'] = this.calculateDuration(formObject['start-time'], formObject['end-time'])
-
-
-        let validTime = this.validateInput(newHabit['start'],newHabit['end'])
+        let validTime = this.validateInput(start,end)
 
         if(validTime) {
             // console.log(validTime)
-            this.saveToStorage(newHabit)
+            this.saveToStorage(formObject)
             this.displayFilteredTasks()
             form.reset();
+            // document.getElementById('taskName').focus()
+            location.reload()
+
         } else {
             alert("Invalid time provided.")
         }
@@ -117,10 +105,8 @@ class TaskManager {
         localStorage.setItem(storeKey, json)
     }
 
-    validateInput(startTime, endTime) {
-        // const startTime = '16:29'
-        // const endTime = '16:69'
-        
+
+    validateInput(startTime, endTime) {      
         const [startHours, startMinutes] = startTime.split(':').map(Number)
         const [endHours, endMinutes] = endTime.split(':').map(Number)
         // First checkpoint: Time range
@@ -137,10 +123,6 @@ class TaskManager {
 
         let regExChk = regExStartChk && regExEndChk
         let result = timeCompareChk && inputRangeChk && regExChk
-
-        // console.log(result)
-        // console.log(regExChk)
-        // console.log(inputRangeChk)
         return result
     }
 
@@ -153,10 +135,9 @@ class TaskManager {
                 const parsedData = JSON.parse(data)
                 allItems.push(parsedData)
             }
+            this.sortHabits(allItems)
             this.allMyTasks = allItems
-            this.sortHabits()
             return this.allMyTasks
-            // return allItems
         } 
         else {
             return this.displayHabit()
@@ -165,16 +146,15 @@ class TaskManager {
 
     displayFilteredTasks() {
         let result = ""
-        // this.sortHabits ()
         let array = this.getLocalStorage()
         let remainder = 24
         let accDayDuration = 0
         for (const newHabit of array) {
             if (newHabit.day === this.dayIndex) {
                 const day = newHabit.day
-                const name = newHabit.name
-                const start = newHabit.start
-                const end = newHabit.end
+                const name = newHabit.taskName
+                const start = newHabit.startTime
+                const end = newHabit.endTime
                 const duration = newHabit.duration
                 // const duration = this.calculateDuration(start, end)
                 accDayDuration += duration
@@ -184,5 +164,10 @@ class TaskManager {
             }
         result += this.displayHabit(remainder)
         return result
+    }
+
+    clearLocalStorage() {
+        localStorage.clear()
+        location.reload()
     }
 }

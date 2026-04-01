@@ -13,6 +13,7 @@ class Chart {
       this.chartData = storedData
       this.series = this.createSeries()
       this.legend = this.createLegend()
+      // this.title = this.addTitle()
       this.label = null
       this.centerText = ""
 
@@ -78,6 +79,15 @@ class Chart {
 
       legend.data.setAll(this.series.dataItems)
       return legend
+  }
+
+  addTitle() {
+    const title = chart.titles.create()
+    title.text = "Title"
+    title.fontSize = 25
+    title.marginTop = 15
+
+    return title
   }
 
   setCenterText() {

@@ -9,15 +9,21 @@
         background-color: yellow;
     } */
 
-    .chart-segment {
-        background-color: yellow;
-    }
 
     main div {
         display: flex;
-        margin: 1em;
+        margin: 0 1em;
         /* margin: 3em 1em; */
     }
+
+    main h1 {
+        text-align: center;
+        color: black;
+        margin-top: 1.2em;
+        font-size: 3rem;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
     /* CHART JS STYLES */
     #habitChart {
         width: 600px;

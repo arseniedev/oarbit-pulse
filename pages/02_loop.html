@@ -29,13 +29,9 @@
         <!-- FORM -->
         <div id="container"></div>
         <!-- BEGIN BUTTON -->
-        <div id="begin-loop-container"></div>
 
     </main>
-    <aside>
-        
-    </aside>
-        
+
     <footer>
         <!-- <div class="menu"> -->
             <a href="01_habits.html"><i class="fa fa-calendar"></i></a>
@@ -51,81 +47,66 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <script src="/src/loop.js"></script>
-
     <script type="text/babel">
-        var timeArr = []
+        var timePair = {}
         var timegap
         function LoopForm() {
             // Start-Time form
-            const [startTime, setstartTime] = React.useState(null)
+            let theLoopManager = new LoopManager()
+            let [startTime, setstartTime] = React.useState("-")
             // End-Time form
-            const [endTime, setEndTime] = React.useState(null)
+            let [endTime, setEndTime] = React.useState("-")
             
             // Calculate duration
-            const [duration, setDuration] = React.useState(0)
+            let [duration, setDuration] = React.useState(0)
 
             // Interval
-            const [interval, setInterval] = React.useState("Specify how many times you want to be notified.")
+            let [timegap, setTimegap] = React.useState("Specify how many times you want to be notified.")
 
             function handleStartChange(event) {
-                timeArr = []
-                const value = event.target.value
-                setstartTime(validateInput(value))
-                timeArr.push(value)
-                setDuration(timeArr)
+                let validatedTime = theLoopManager.validateInput(event)
+                setstartTime(validatedTime[1])
+                if (validatedTime[0]) {
+                    timePair['start-time'] = validatedTime[2]
+                    unpackTime()
+                }
             }
 
             function handleEndChange(event) {
-                if (timeArr.length > 1) {
-                    timeArr = []
+                let validatedTime = theLoopManager.validateInput(event)
+                setEndTime(validatedTime[1])
+                if (validatedTime[0]) {
+                    timePair['end-time'] = validatedTime[2]
+                    unpackTime()
                 }
-                const value = event.target.value
-                setEndTime(validateInput(value))
-                const start = timeArr[0]
-                setDuration(calculateDuration(start,value))
+            }
+
+            function unpackTime() {
+                if (Object.keys(timePair).length >= 2) {
+                    console.log(timePair)
+                    let start = timePair['start-time']
+                    let end = timePair['end-time']
+                    if (theLoopManager.compareTime(start,end)) {
+                        timePair['hrDifference'] = theLoopManager.calculateDuration(start,end)
+                        setDuration(timePair['hrDifference'])
+                    } 
+                    else {
+                        setEndTime("Please enter a larger time value.")}
+                }
             }
 
             function handleInterval(event) {
-                const value = event.target.value
-                setInterval(solveInterval(value))
-            }
-        
-            function validateInput(value) {
-                if (value.trim() === '') {
-                    return null
-                }
-                const [hours, minutes] = value.split(':').map(Number)
-                const regEx = /^(0?[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/
-                const validTxt = 'Valid format'
-                const inValidTxt = 'Invalid format or time'
-
-                var checker = regEx.test(value) && hours >= 0 && hours <= 24 && minutes >= 0 && minutes < 60
-                return checker
-                    ? validTxt
-                    : inValidTxt
+                let count = event.target.value
+                let gap = timePair['hrDifference']
+                timePair['count'] = count
+                setTimegap(theLoopManager.solveInterval(count, gap))
             }
 
-            function solveInterval(value) {
-                let minuteInterval = (timegap / value) * 60
-                return `You will receive hydration reminders every ${parseFloat(minuteInterval.toFixed(0))} minutes.`
+            function handleBeginBtn(event) {
+                theLoopManager.setState(timePair['count'],timePair['hrDifference'])
             }
 
-            function calculateDuration(startTime, endTime) {
-                let output
-                const start = new Date(`2000-01-01T${startTime}:00`)
-                const end = new Date(`2000-01-01T${endTime}:00`)
-                const result = Math.abs((end - start) / 36e5)
-                timegap = result
-                // return (result !== Nan) ? result : ""
-                if (result !== NaN && start < end) {
-                    output = parseFloat(result.toFixed(2))
-                } else if(start > end) {
-                    output = "Invalid"
-                }
-                else { output = "0"}
-                return output
-            }
-    
+
         return (
             <div>
                 <div className="duration">
@@ -135,34 +116,31 @@
                 <div className="loop-container">
                     <div className="time-container">
                         <h4>Start Time</h4>
-                        <input type="text" id="start-time" name="start-time" placeholder="00:00" onChange={handleStartChange} required/>
                         <p>{startTime}</p>
+                        <input type="time" id="start-time" name="start-time" onChange={handleStartChange} required/>
                     </div>
                     <div className="time-container">
                         <h4>End Time</h4>
-                        <input type="text" id="end-time" name="end-time" placeholder="00:00" onChange={handleEndChange} required/>
                         <p>{endTime}</p>
+                        <input type="time" id="end-time" name="end-time" onChange={handleEndChange} required/>
                     </div>
                 </div>
                 <div className="interval">
-                    <label htmlFor="task-name"><h4>Count</h4></label>
-                    <p>{interval}</p>
-                    <input type="text" id="task-name" name="task-name" placeholder="Enter an integer" onChange={handleInterval} required/>
-
+                    <label htmlFor="interval"><h4>Count</h4></label>
+                    <p>{timegap}</p>
+                    <input type="number" id="interval" name="interval" min="1" placeholder="Enter an integer" onChange={handleInterval} required/>
+                </div>
+                <div id="begin-loop-container">
+                    <button id="begin-button" onClick={handleBeginBtn}>Begin</button>
                 </div>
                 </div>
             )}
-        // const prompt = 'Enter time'
-        const testelement = <LoopForm/>
+        let testelement = <LoopForm/>
     
-        const acontainer = document.getElementById('container')
-        const testroot = ReactDOM.createRoot(acontainer)
+        let acontainer = document.getElementById('container')
+        let testroot = ReactDOM.createRoot(acontainer)
         testroot.render(testelement)
       </script>
+    
 </body>
 </html>
-<!--  <h6>Duration</h6> -->
-        <!-- <div>
-            <input type="text" onChange={handleChange} />
-            <p>{msg}</p>
-        </div> -->
