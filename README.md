@@ -1,4 +1,11 @@
 # OarBit Pulse — Routine Management App
+![JavaScript](https://img.shields.io/badge/JavaScript-%23F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black)
+![HTML5](https://img.shields.io/badge/HTML5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+![D3.js](https://img.shields.io/badge/D3.js-F9A03C?style=for-the-badge&logo=d3dotjs&logoColor=white)
+![Figma](https://img.shields.io/badge/Figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+
 > BCDE213 - Interactive Media Development
 > 
 >  OarBit Pulse is a lightweight routine management app project, as part of the **BCDE213 - Interactive Media Development** course. This app is built with TypeScript, designed to help users build consistent habits through structured tracking, intelligent reminders, and actionable insights. 
@@ -33,14 +40,6 @@ This project was developed as part of an Interactive Media school project, with 
 - Visual and/or data-driven summaries of progress
 - Track streaks and completion rates
 - Identify patterns and drop-offs
-
----
-
-## Tech Stack
-- Language: TypeScript
-- Architecture: Modular, component-based structure
-- Environment: []
-
 ---
 
 ## Project Structure
