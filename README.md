@@ -59,8 +59,8 @@ src/
 
 **Installation**
 ```
-git clone https://github.com/your-username/draft-project-oarbit-pulse.git
-cd draft-project-oarbit-pulse
+git clone https://github.com/your-username/oarbit-pulse.git
+cd oarbit-pulse
 npm install
 ```
 
