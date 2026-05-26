@@ -1,5 +1,8 @@
 # OarBit Pulse — Routine Management App
-OarBit Pulse is a lightweight routine management application built with TypeScript, designed to help users build consistent habits through structured tracking, intelligent reminders, and actionable insights.
+> BCDE213 - Interactive Media Development
+> 
+>  OarBit Pulse is a lightweight routine management app project, as part of the **BCDE213 - Interactive Media Development** course. This app is built with TypeScript, designed to help users build consistent habits through structured tracking, intelligent reminders, and actionable insights. 
+
 
 🔗** Live Demo:** [ link to be added ] 
 
