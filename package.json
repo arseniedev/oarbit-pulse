@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "react-router-dom": "^7.16.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6"
+  }
+}
