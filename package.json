@@ -10,12 +10,20 @@
     "type": "git",
     "url": "git+https://github.com/arseniedev/oarbit-pulse.git"
   },
-  "keywords": [],
+  "keywords": [
+    "habit-manager",
+    "habits"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/arseniedev/oarbit-pulse/issues"
   },
-  "homepage": "https://github.com/arseniedev/oarbit-pulse#readme"
+  "homepage": "https://github.com/arseniedev/oarbit-pulse#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "@tailwindcss/vite": "^4.3.0",
+    "tailwindcss": "^4.3.0"
+  }
 }
