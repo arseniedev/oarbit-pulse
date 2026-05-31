@@ -7,8 +7,6 @@
 ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![Figma](https://img.shields.io/badge/Figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
-![Canva](https://img.shields.io/badge/Canva-00C4CC?style=for-the-badge&logo=canva&logoColor=white)
-![Lucidchart](https://img.shields.io/badge/Lucidchart-FA6800?style=for-the-badge&logo=lucidchart&logoColor=white)
 
 `OarBit Pulse` is a lightweight routine management app project, as part of the **BCDE213 - Interactive Media Development**. This app is designed to help users build consistent habits through structured tracking, intelligent reminders, and actionable insights. It focuses on behavior consistency, not just logging. It provides a minimal but purposeful system for:
 
@@ -58,13 +56,13 @@ src/
   </tr>
   <tr align="center">
     <td>
-      <img src="https://github.com/arseniedev/music-catalogue/blob/docs/docs/snapshots/iteration-2/04-stats-page.png" alt="Stats" width="420"/>
+      <img src="https://github.com/arseniedev/oarbit-pulse/blob/docs/assets/ui-info/04-stats-page.png" alt="Stats" width="420"/>
     </td>
     <td>
-      <img src="https://github.com/arseniedev/music-catalogue/blob/docs/docs/snapshots/iteration-2/05-tutorial-page.png" alt="Tutorial" width="420"/>
+      <img src="https://github.com/arseniedev/oarbit-pulse/blob/docs/assets/ui-info/05-tutorial-page.png" alt="Tutorial" width="420"/>
     </td>
     <td>
-      <img src="https://github.com/arseniedev/music-catalogue/blob/docs/docs/snapshots/iteration-2/06-tutorial-tabs.png" alt="Tutorial Tabs" width="420"/>
+      <img src="https://github.com/arseniedev/oarbit-pulse/blob/docs/assets/ui-info/06-tutorial-tabs.jpeg" alt="Tutorial Tabs" width="420"/>
     </td>
   </tr>
 </table>
