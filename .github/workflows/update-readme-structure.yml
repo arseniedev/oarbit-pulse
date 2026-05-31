@@ -9,6 +9,7 @@ on:
     branches:
       - main
       - dev
+      - chore/upgrade-app-to-react-vite
 
 jobs:
   update-readme:
