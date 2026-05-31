@@ -1,7 +1,7 @@
 {
   "name": "oarbit-pulse",
   "version": "1.0.0",
-  "description": "OarBit Pulse is a lightweight routine management application built with TypeScript, designed to help users build consistent habits through structured tracking, intelligent reminders, and actionable insights.",
+  "description": "OarBit Pulse is a lightweight routine management application built with JavaScript, designed to help users build consistent habits through structured tracking, intelligent reminders, and actionable insights.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
