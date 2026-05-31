@@ -1,0 +1,119 @@
+@media screen and (min-width: 360px){
+    #loop-content {
+        margin: 2.5em 0;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* .fa-bell {
+        color: #d8c2ba;
+    } */
+    
+    .duration {
+        /* thickness of the border */
+        --b: 5px;   
+        /* color of the border */
+        --c: #570c0c;
+        /* width of border */
+        --w: 20px;
+        
+      /* space for the border */
+        border: var(--b) solid #0000;
+        --_g: #be0b0b00 90deg,var(--c) 0;
+        --_p: var(--w) var(--w) border-box no-repeat;
+        background:
+          conic-gradient(from 90deg  at top    var(--b) left  var(--b),var(--_g)) 0    0    / var(--_p),
+          conic-gradient(from 180deg at top    var(--b) right var(--b),var(--_g)) 100% 0    / var(--_p),
+          conic-gradient(from 0deg   at bottom var(--b) left  var(--b),var(--_g)) 0    100% / var(--_p),
+          conic-gradient(from -90deg at bottom var(--b) right var(--b),var(--_g)) 100% 100% / var(--_p);
+
+
+        /* border-top: #2e02022d double 5px; */
+        /* border-bottom: #2e02022d double 5px; */
+        color: #570c0c;
+        /* border-radius: 13%; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 45%;
+        /* margin: 2em 0; */
+        /* padding: 0 15em; */
+        /* padding: 1em 0; */
+    }
+
+    /* main {
+        margin-top: 10em;
+    } */
+
+    main h1 {
+        font-size: 8rem;
+        color: #570c0c;
+    }
+
+    h4 {
+        text-align: center;
+        font-size: 1.7rem;
+        font-weight: bold;
+    }
+
+    .loop-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        text-align: center;
+        margin: 2.5em 0;
+    }
+
+    .time-container {
+        width: 230px;
+        margin: 0 0 1em0;
+    }
+
+    input {
+        margin: 0 auto;
+        text-align: center;
+        padding: 0.7em 1.2em;
+        font-size: 1.5rem;
+    }
+
+    .time-container .invalid {
+        color: #da0909;
+    }
+
+    .interval {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* padding: 1em; */
+    }
+
+    /* #interval {
+        padding: 1em;
+    } */
+    
+    main button {
+        margin-top: 4em;
+        padding: 1.5em 4em;
+        background-color: #69290f;
+        color: #f7f7f7;
+        border: none;
+        cursor: pointer;
+    }
+    
+    #begin-loop-container button {
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 1.5rem;
+        border-radius: 10px;
+    }
+
+    p {
+        font-size: 1.5rem;
+    }
+}

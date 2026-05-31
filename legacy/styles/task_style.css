@@ -1,0 +1,28 @@
+main button, .close-button {
+    cursor: pointer;
+}
+
+.task-time-container {
+    display: flex;
+    align-items: center;
+    width: 500px;
+    margin-bottom: 0;
+}
+
+
+#task-detail {
+    border: solid 1px #e0e0e0;
+    width: 100%;
+}
+
+
+#popup-form {
+    opacity: 0;
+}
+
+#popup-form.active {
+    opacity: 1;
+    position: absolute;
+    top: 5%;
+    left: 40%;
+}
