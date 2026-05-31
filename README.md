@@ -39,7 +39,6 @@ src/
 
 [![📖 Wiki — Iterations](https://img.shields.io/badge/📖_Wiki-Iterations_⊿_-1a1a2e?style=for-the-badge&labelColor=16213e)](https://github.com/arseniedev/oarbit-pulse/wiki/Iterations)
 
-
 <table>
   <tr align="center">
     <td>Splashscreen</td>
