@@ -25,51 +25,32 @@ This project was developed as part of an Interactive Media school project, with 
 ```text
 .
 ├── README.md
-├── index.html
-├── media
-│   ├── animation
-│   ├── audio
-│   ├── images
-│   └── videos
+├── client
+│   ├── README.md
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public
+│   ├── src
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
+│   └── vite.config.ts
+├── legacy
+│   ├── scripts
+│   ├── static
+│   └── styles
+├── package-lock.json
 ├── package.json
-├── pages
-│   ├── 00_home.html
-│   ├── 01_habits.html
-│   ├── 02_loop.html
-│   ├── 02_statistics.html
-│   ├── 03_loop.html
-│   ├── 03_report.html
-│   ├── 04_tutorial.html
-│   ├── 04_walkthrough.html
-│   ├── form.html
-│   ├── routine.html
-│   └── routine_home.html
-├── src
-│   ├── audio.js
-│   ├── habits.js
-│   ├── like_button.js
-│   ├── loop.js
-│   ├── report.js
-│   ├── statistics.js
-│   ├── task.js
-│   ├── task_controller.js
-│   └── task_json.js
-├── static
-│   ├── 00_layout.css
-│   ├── 01_home.css
-│   ├── 02_habits.css
-│   ├── 03_loop.css
-│   ├── 03_statistics.css
-│   ├── 04_loop.css
-│   ├── 04_report.css
-│   ├── 05_tutorial.css
-│   ├── 05_walkthrough.css
-│   ├── layout.css
-│   ├── task_style.css
-│   └── x.css
+├── server
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── src
+│   └── tsconfig.json
 └── structure.txt
 
-9 directories, 36 files
+10 directories, 16 files
 ```
 <!-- END_STRUCTURE -->
 
